@@ -1,0 +1,2 @@
+# YCBaseAdapter
+adapter封装
