@@ -1,4 +1,4 @@
-package com.yc.cn.ycbaseadapterlib.second.viewHolder;
+package com.yc.cn.ycbaseadapterlib;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -27,7 +27,7 @@ import android.widget.TextView;
  * 修订历史：
  * ================================================
  */
-public class BaseRvViewHolder extends RecyclerView.ViewHolder{
+public class BaseViewHolder extends RecyclerView.ViewHolder{
 
     // SparseArray 比 HashMap 更省内存，在某些条件下性能更好，只能存储 key 为 int 类型的数据，
     // 用来存放 View 以减少 findViewById 的次数
@@ -35,7 +35,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     //这个是item的对象
     private View mItemView;
 
-    public BaseRvViewHolder(View itemView) {
+    public BaseViewHolder(View itemView) {
         super(itemView);
         this.mItemView = itemView;
         viewSparseArray = new SparseArray<>();
@@ -69,7 +69,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置TextView的值
      */
-    public BaseRvViewHolder setText(int viewId, String text) {
+    public BaseViewHolder setText(int viewId, String text) {
         TextView tv = getView(viewId);
         tv.setText(text);
         return this;
@@ -78,7 +78,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置imageView图片
      */
-    public BaseRvViewHolder setImageResource(int viewId, int resId) {
+    public BaseViewHolder setImageResource(int viewId, int resId) {
         ImageView view = getView(viewId);
         view.setImageResource(resId);
         return this;
@@ -87,7 +87,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置imageView图片
      */
-    public BaseRvViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
+    public BaseViewHolder setImageBitmap(int viewId, Bitmap bitmap) {
         ImageView view = getView(viewId);
         view.setImageBitmap(bitmap);
         return this;
@@ -96,7 +96,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置imageView图片
      */
-    public BaseRvViewHolder setImageDrawable(int viewId, Drawable drawable) {
+    public BaseViewHolder setImageDrawable(int viewId, Drawable drawable) {
         ImageView view = getView(viewId);
         view.setImageDrawable(drawable);
         return this;
@@ -105,7 +105,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置背景颜色
      */
-    public BaseRvViewHolder setBackgroundColor(int viewId, int color) {
+    public BaseViewHolder setBackgroundColor(int viewId, int color) {
         View view = getView(viewId);
         view.setBackgroundColor(color);
         return this;
@@ -114,7 +114,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置背景颜色
      */
-    public BaseRvViewHolder setBackgroundRes(int viewId, int backgroundRes) {
+    public BaseViewHolder setBackgroundRes(int viewId, int backgroundRes) {
         View view = getView(viewId);
         view.setBackgroundResource(backgroundRes);
         return this;
@@ -123,7 +123,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置text颜色
      */
-    public BaseRvViewHolder setTextColor(int viewId, int textColor) {
+    public BaseViewHolder setTextColor(int viewId, int textColor) {
         TextView view = getView(viewId);
         view.setTextColor(textColor);
         return this;
@@ -133,7 +133,7 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
      * 设置透明度
      */
     @SuppressLint("NewApi")
-    public BaseRvViewHolder setAlpha(int viewId, float value) {
+    public BaseViewHolder setAlpha(int viewId, float value) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getView(viewId).setAlpha(value);
         } else {
@@ -150,20 +150,20 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 设置是否可见
      */
-    public BaseRvViewHolder setVisible(int viewId, boolean visible) {
+    public BaseViewHolder setVisible(int viewId, boolean visible) {
         View view = getView(viewId);
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
         return this;
     }
 
 
-    public BaseRvViewHolder linkify(int viewId) {
+    public BaseViewHolder linkify(int viewId) {
         TextView view = getView(viewId);
         Linkify.addLinks(view, Linkify.ALL);
         return this;
     }
 
-    public BaseRvViewHolder setTypeface(Typeface typeface, int... viewIds) {
+    public BaseViewHolder setTypeface(Typeface typeface, int... viewIds) {
         for (int viewId : viewIds) {
             TextView view = getView(viewId);
             view.setTypeface(typeface);
@@ -172,51 +172,51 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
         return this;
     }
 
-    public BaseRvViewHolder setProgress(int viewId, int progress) {
+    public BaseViewHolder setProgress(int viewId, int progress) {
         ProgressBar view = getView(viewId);
         view.setProgress(progress);
         return this;
     }
 
-    public BaseRvViewHolder setProgress(int viewId, int progress, int max) {
+    public BaseViewHolder setProgress(int viewId, int progress, int max) {
         ProgressBar view = getView(viewId);
         view.setMax(max);
         view.setProgress(progress);
         return this;
     }
 
-    public BaseRvViewHolder setMax(int viewId, int max) {
+    public BaseViewHolder setMax(int viewId, int max) {
         ProgressBar view = getView(viewId);
         view.setMax(max);
         return this;
     }
 
-    public BaseRvViewHolder setRating(int viewId, float rating) {
+    public BaseViewHolder setRating(int viewId, float rating) {
         RatingBar view = getView(viewId);
         view.setRating(rating);
         return this;
     }
 
-    public BaseRvViewHolder setRating(int viewId, float rating, int max) {
+    public BaseViewHolder setRating(int viewId, float rating, int max) {
         RatingBar view = getView(viewId);
         view.setMax(max);
         view.setRating(rating);
         return this;
     }
 
-    public BaseRvViewHolder setTag(int viewId, Object tag) {
+    public BaseViewHolder setTag(int viewId, Object tag) {
         View view = getView(viewId);
         view.setTag(tag);
         return this;
     }
 
-    public BaseRvViewHolder setTag(int viewId, int key, Object tag) {
+    public BaseViewHolder setTag(int viewId, int key, Object tag) {
         View view = getView(viewId);
         view.setTag(key, tag);
         return this;
     }
 
-    public BaseRvViewHolder setChecked(int viewId, boolean checked) {
+    public BaseViewHolder setChecked(int viewId, boolean checked) {
         Checkable view = (Checkable) getView(viewId);
         view.setChecked(checked);
         return this;
@@ -225,19 +225,19 @@ public class BaseRvViewHolder extends RecyclerView.ViewHolder{
     /**
      * 关于事件的
      */
-    public BaseRvViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
+    public BaseViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);
         view.setOnClickListener(listener);
         return this;
     }
 
-    public BaseRvViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
+    public BaseViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
         View view = getView(viewId);
         view.setOnTouchListener(listener);
         return this;
     }
 
-    public BaseRvViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
+    public BaseViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
         View view = getView(viewId);
         view.setOnLongClickListener(listener);
         return this;

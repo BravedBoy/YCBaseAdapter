@@ -1,4 +1,4 @@
-package com.yc.cn.ycbaseadapterlib.first;
+package com.yc.cn.ycbaseadapterlib;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

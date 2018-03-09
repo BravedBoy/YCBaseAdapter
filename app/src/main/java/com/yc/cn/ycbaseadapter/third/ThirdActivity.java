@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.yc.cn.ycbaseadapter.R;
 import com.yc.cn.ycbaseadapter.first.RecycleViewItemLine;
-import com.yc.cn.ycbaseadapterlib.first.BaseAdapter;
+import com.yc.cn.ycbaseadapterlib.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,9 +3,9 @@ package com.yc.cn.ycbaseadapter.third;
 import android.content.Context;
 
 import com.yc.cn.ycbaseadapter.R;
-import com.yc.cn.ycbaseadapterlib.first.BaseAdapter;
-import com.yc.cn.ycbaseadapterlib.first.BaseViewHolder;
-import com.yc.cn.ycbaseadapterlib.first.MultiTypeSupport;
+import com.yc.cn.ycbaseadapterlib.BaseAdapter;
+import com.yc.cn.ycbaseadapterlib.BaseViewHolder;
+import com.yc.cn.ycbaseadapterlib.MultiTypeSupport;
 
 
 public class ThirdAdapter extends BaseAdapter<ThirdBean> implements MultiTypeSupport<ThirdBean>{
