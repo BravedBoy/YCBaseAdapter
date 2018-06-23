@@ -25,7 +25,15 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     private int layoutId;
     private List<T> data;
     protected MultiTypeSupport<T> multiTypeSupport;
-    protected OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener mOnItemClickListener;
+    //默认可以回收
+    private boolean isRecycle = true;
+
+
+    public BaseAdapter() {
+        //默认可以回收
+        this.isRecycle = true;
+    }
 
 
     /**
@@ -37,6 +45,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         this.layoutId = layoutId;
         this.context = context;
         data = new ArrayList<>();
+        //默认可以回收
+        this.isRecycle = true;
     }
 
     /**
@@ -49,16 +59,20 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         }
         View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
         BaseViewHolder viewHolder = new BaseViewHolder(view);
-        setListener(viewHolder,viewType);
+        //Default value is true
+        if (!isRecycle) {
+            viewHolder.setIsRecyclable(false);
+        }
+        setListener(viewHolder);
         return viewHolder;
     }
+
 
     /**
      * 设置点击事件和长按事件
      * @param viewHolder        viewHolder
-     * @param viewType          类型
      */
-    private void setListener(final BaseViewHolder viewHolder, int viewType) {
+    private void setListener(final BaseViewHolder viewHolder) {
         viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +116,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         return super.getItemViewType(position);
     }
 
+
     @Override
     public int getItemCount() {
         return data==null ? 0 : data.size();
@@ -112,6 +127,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      * 当子类adapter继承此BaseAdapter时，需要子类实现的绑定数据方法
      */
     protected abstract void bindData(BaseViewHolder holder, T t);
+
+
+    /*-------------------------------------操作方法-----------------------------------------------*/
 
     /**
      * 设置数据，并且刷新页面
@@ -127,6 +145,61 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     }
 
     /**
+     * 设置数据T，并且刷新页面
+     */
+    public boolean setData(T t) {
+        if (t == null) {
+            return false;
+        }
+        if (data.contains(t)) {
+            return false;
+        }
+        boolean b = data.add(t);
+        notifyItemInserted(data.size() - 1);
+        return b;
+    }
+
+    /**
+     * 在索引position处添加数据t并且刷新
+     * @param position                  position
+     * @param t                         t
+     * @return
+     */
+    public boolean setData(int position, T t) {
+        if (t == null){
+            return false;
+        }
+        if (position < 0 || position > data.size()){
+            return false;
+        }
+        if (data.contains(t)){
+            return false;
+        }
+        data.add(position, t);
+        notifyItemInserted(position);
+        return true;
+    }
+
+    /**
+     * 在索引position处添加数据list集合并且刷新
+     * @param position                  position
+     * @param list                      list
+     * @return
+     */
+    public boolean setData(int position, List<T> list) {
+        if (list == null) {
+            return false;
+        }
+        if (data.contains(list)){
+            return false;
+        }
+        data.addAll(position, list);
+        notifyItemRangeInserted(position, list.size());
+        return true;
+    }
+
+
+    /**
      * 获取数据
      */
     public List<T> getData(){
@@ -136,10 +209,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     /**
      * 清理所有数据，并且刷新页面
      */
-    public void clear(){
+    public void clearAll(){
         data.clear();
         notifyDataSetChanged();
     }
+
 
     /**
      * 移除数据
@@ -150,18 +224,19 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         }
         int index = data.indexOf(t);
         remove(index);
+        notifyItemRemoved(index);
     }
 
 
     /**
      * 移除数据
      */
-    public void remove(int index){
-        if(data.size()==0){
-            return;
+    public void remove(int position){
+        if (position < 0 || position >= data.size()) {
+            return ;
         }
-        data.remove(index);
-        notifyItemRemoved(index);
+        data.remove(position);
+        notifyItemRemoved(position);
     }
 
     /**
@@ -176,6 +251,38 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         }
         data.subList(start,start+count).clear();
         notifyItemRangeRemoved(start,count);
+    }
+
+
+    /**
+     * 更新数据
+     * @param position           索引
+     * @return
+     */
+    public boolean updateItem(int position) {
+        if (position < 0 || position >= data.size()) {
+            return false;
+        }
+        notifyItemChanged(position);
+        return true;
+    }
+
+    /**
+     * 更新数据
+     * @param t                 t
+     * @return
+     */
+    public boolean updateItem(T t) {
+        if (t == null) {
+            return false;
+        }
+        int index = data.indexOf(t);
+        if (index >= 0) {
+            data.set(index, t);
+            notifyItemChanged(index);
+            return true;
+        }
+        return false;
     }
 
 

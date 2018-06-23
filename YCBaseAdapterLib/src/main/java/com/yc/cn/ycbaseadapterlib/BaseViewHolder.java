@@ -35,7 +35,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
     //这个是item的对象
     private View mItemView;
 
-    public BaseViewHolder(View itemView) {
+    BaseViewHolder(View itemView) {
         super(itemView);
         this.mItemView = itemView;
         viewSparseArray = new SparseArray<>();
@@ -134,7 +134,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
      */
     @SuppressLint("NewApi")
     public BaseViewHolder setAlpha(int viewId, float value) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION_CODES.HONEYCOMB <= Build.VERSION.SDK_INT) {
             getView(viewId).setAlpha(value);
         } else {
             // Pre-honeycomb hack to set Alpha value
@@ -227,18 +227,27 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
      */
     public BaseViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);
+        if(view==null){
+            return null;
+        }
         view.setOnClickListener(listener);
         return this;
     }
 
     public BaseViewHolder setOnTouchListener(int viewId, View.OnTouchListener listener) {
         View view = getView(viewId);
+        if(view==null){
+            return null;
+        }
         view.setOnTouchListener(listener);
         return this;
     }
 
     public BaseViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener) {
         View view = getView(viewId);
+        if(view==null){
+            return null;
+        }
         view.setOnLongClickListener(listener);
         return this;
     }
