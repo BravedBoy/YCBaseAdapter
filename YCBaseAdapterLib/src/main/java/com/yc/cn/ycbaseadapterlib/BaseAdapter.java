@@ -29,12 +29,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     //默认可以回收
     private boolean isRecycle = true;
 
-
     public BaseAdapter() {
         //默认可以回收
         this.isRecycle = true;
     }
-
 
     /**
      * 构造方法
@@ -65,34 +63,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         }
         setListener(viewHolder);
         return viewHolder;
-    }
-
-
-    /**
-     * 设置点击事件和长按事件
-     * @param viewHolder        viewHolder
-     */
-    private void setListener(final BaseViewHolder viewHolder) {
-        viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null) {
-                    int position = viewHolder.getAdapterPosition();
-                    mOnItemClickListener.onItemClick(v, viewHolder , position);
-                }
-            }
-        });
-
-        viewHolder.getItemView().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (mOnItemClickListener != null) {
-                    int position = viewHolder.getAdapterPosition();
-                    return mOnItemClickListener.onItemLongClick(v, viewHolder, position);
-                }
-                return false;
-            }
-        });
     }
 
     /**
@@ -130,6 +100,36 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
 
 
     /*-------------------------------------操作方法-----------------------------------------------*/
+
+
+
+    /**
+     * 设置点击事件和长按事件
+     * @param viewHolder        viewHolder
+     */
+    private void setListener(final BaseViewHolder viewHolder) {
+        viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    int position = viewHolder.getAdapterPosition();
+                    mOnItemClickListener.onItemClick(v, viewHolder , position);
+                }
+            }
+        });
+
+        viewHolder.getItemView().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mOnItemClickListener != null) {
+                    int position = viewHolder.getAdapterPosition();
+                    return mOnItemClickListener.onItemLongClick(v, viewHolder, position);
+                }
+                return false;
+            }
+        });
+    }
+
 
     /**
      * 设置数据，并且刷新页面

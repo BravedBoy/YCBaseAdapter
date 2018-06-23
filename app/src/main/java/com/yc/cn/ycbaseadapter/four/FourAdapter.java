@@ -21,6 +21,11 @@ public class FourAdapter extends BaseAdapter<FourBean> implements MultiTypeSuppo
         this.multiTypeSupport = this;
     }
 
+    /**
+     * 绑定数据
+     * @param holder                    holder
+     * @param s                         bean
+     */
     @Override
     protected void bindData(BaseViewHolder holder, FourBean s) {
         int location = s.getLocation();
@@ -46,6 +51,12 @@ public class FourAdapter extends BaseAdapter<FourBean> implements MultiTypeSuppo
         }
     }
 
+    /**
+     * 用来区分不同item
+     * @param item              item
+     * @param position
+     * @return
+     */
     @Override
     public int getLayoutId(FourBean item, int position) {
         if (item.getLocation()==1) {
