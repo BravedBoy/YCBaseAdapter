@@ -1,4 +1,4 @@
-package com.yc.cn.ycbaseadapterlib;
+package com.yc.cn.ycbaseadapterlib.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

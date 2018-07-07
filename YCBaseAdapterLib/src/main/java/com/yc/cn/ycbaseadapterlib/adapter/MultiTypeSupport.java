@@ -1,4 +1,4 @@
-package com.yc.cn.ycbaseadapterlib;
+package com.yc.cn.ycbaseadapterlib.adapter;
 
 /**
  * ================================================

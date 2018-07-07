@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.yc.cn.ycbaseadapter.first.FirstActivity;
+import com.yc.cn.ycbaseadapter.five.FiveActivity;
 import com.yc.cn.ycbaseadapter.four.FourActivity;
 import com.yc.cn.ycbaseadapter.second.SecondActivity;
 import com.yc.cn.ycbaseadapter.third.ThirdActivity;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, FourActivity.class));
                 break;
             case R.id.tv_5:
-
+                startActivity(new Intent(this, FiveActivity.class));
                 break;
             case R.id.tv_6:
 
