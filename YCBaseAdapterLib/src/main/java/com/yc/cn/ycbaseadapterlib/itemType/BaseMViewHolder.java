@@ -66,14 +66,6 @@ abstract public class BaseMViewHolder<M> extends RecyclerView.ViewHolder {
      */
     public void setData(M data) {}
 
-    /**
-     * 第一种findViewById方式
-     * 根据 ID 来获取 View
-     */
-    @SuppressWarnings("unchecked")
-    protected <T extends View> T $(@IdRes int id) {
-        return (T) itemView.findViewById(id);
-    }
 
     /**
      * 第二种findViewById方式

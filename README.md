@@ -1,14 +1,28 @@
 # YCBaseAdapter
 #### 目录介绍
-- 1.使用介绍
-- 2.封装思路
+- 1.功能说明
+- 2.使用介绍
+    - 2.1 初步设置recycleView
+    - 2.2 设置adapter，继承BaseAdapter<T>
+    - 2.3 如果是需要支持添加Header或者Footer，继承RecyclerArrayAdapter<T>
 - 3.相关方法介绍
+    - 3.1 设置数据方法
+    - 3.2 移除，清除方法看代码
+    - 3.3 添加header或者footer
 - 4.遇到问题介绍
 - 5.局限性
 
 
-### 1.使用介绍
-- 1.1 设置设置recycleView
+### 1.功能说明
+- 1.1 封装一个通常的ViewHolder，里面用SparseArray<View>来缓存id
+- 1.2 减少Adapter基础逻辑重复书写，通过泛型传参，使得代码更清晰
+- 1.3 支持设置多种不同的ViewType类型布局
+- 1.4 支持recyclerView添加多个header和footer
+- 1.5 子类继承BaseAdapter<T>，通过实现bindData方法设置view数据
+
+
+### 2.使用介绍
+- 2.1 初步设置recycleView
 
 ```
 recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -31,7 +45,7 @@ adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
 });
 ```
 
-- 1.2 设置adpater，继承BaseAdapter<T>
+- 2.2 设置adapter，继承BaseAdapter<T>
 
 ```
 public class FourAdapter extends BaseAdapter<FourBean> implements MultiTypeSupport<FourBean>{
@@ -96,12 +110,10 @@ public class FourAdapter extends BaseAdapter<FourBean> implements MultiTypeSuppo
 ```
 
 
-### 2.封装思路
-- 
-
 
 ### 3.相关方法介绍
 - 3.1 设置数据方法
+
 ```
 设置数据，并且刷新
 setData(List<T> list)
@@ -118,10 +130,50 @@ setData(int position, List<T> list)
 
 - 3.2 移除，清除方法看代码
 
+```
+//移除T数据，不会触发任何事情
+remove(T object)
 
+//移除索引position数据，不会触发任何事情
+remove(int position)
+
+//出发清空数据并刷新
+clear()
+```
+
+- 3.3 添加header或者footer
+
+```
+//添加header
+adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
+    @Override
+    public View onCreateView(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public void onBindView(View headerView) {
+
+    }
+});
+
+//添加footer
+adapter.addFooter(new RecyclerArrayAdapter.ItemView() {
+    @Override
+    public View onCreateView(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public void onBindView(View headerView) {
+
+    }
+});
+```
 
 ### 4.遇到问题介绍
-
+- 4.1 添加多个header或者footer时候，如果header或者footer包含RecyclerView，如果避免卡顿或者焦点抢占
+- 4.2 
 
 
 ### 5.局限性

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.yc.cn.ycbaseadapter.R;
 import com.yc.cn.ycbaseadapter.first.RecycleViewItemLine;
+import com.yc.cn.ycbaseadapterlib.adapter.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * 作者：PC
  */
 
-public class SecondActivity extends AppCompatActivity implements BaseViewHolder.onItemCommonClickListener{
+public class SecondActivity extends AppCompatActivity  {
 
     private List<SecondBean> list;
     private RecyclerView recyclerView;
@@ -41,9 +42,9 @@ public class SecondActivity extends AppCompatActivity implements BaseViewHolder.
 
     private void initData() {
         list = new ArrayList<>();
-        for(int a=0 ; a<20 ; a++){
+        for (int a = 0; a < 20; a++) {
             SecondBean bean = new SecondBean();
-            bean.setTitle("这个是假数据"+a);
+            bean.setTitle("这个是假数据" + a);
             list.add(bean);
         }
     }
@@ -51,22 +52,12 @@ public class SecondActivity extends AppCompatActivity implements BaseViewHolder.
 
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SecondAdapter(this,this);
+        adapter = new SecondAdapter(this);
         recyclerView.setAdapter(adapter);
         adapter.setData(list);
-        RecycleViewItemLine line = new RecycleViewItemLine(this,LinearLayoutManager.HORIZONTAL,2, Color.GRAY);
+        RecycleViewItemLine line = new RecycleViewItemLine(this, LinearLayoutManager.HORIZONTAL, 2, Color.GRAY);
         recyclerView.addItemDecoration(line);
     }
 
 
-    @Override
-    public void onItemClickListener(int position) {
-        List<SecondBean> data = adapter.getData();
-        Toast.makeText(this,data.get(position).getTitle(),Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemLongClickListener(int position) {
-        Toast.makeText(this,"长按",Toast.LENGTH_SHORT).show();
-    }
 }

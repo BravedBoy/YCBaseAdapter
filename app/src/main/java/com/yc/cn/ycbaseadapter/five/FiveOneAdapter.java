@@ -39,6 +39,14 @@ public class FiveOneAdapter extends RecyclerArrayAdapter<Bean> {
             super(parent, R.layout.item_five_one);
             checkBox = getView(R.id.cb);
             tv_state = getView(R.id.tv_state);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener!=null){
+                        listener.OnChildClick(v,getDataPosition());
+                    }
+                }
+            });
         }
 
         @Override
@@ -57,5 +65,12 @@ public class FiveOneAdapter extends RecyclerArrayAdapter<Bean> {
         notifyDataSetChanged();
     }
 
+    private OnChildClickListener listener;
+    public void setOnChildClickListener(OnChildClickListener listener){
+        this.listener = listener;
+    }
+    public interface OnChildClickListener{
+        void OnChildClick(View v,int position);
+    }
 
 }

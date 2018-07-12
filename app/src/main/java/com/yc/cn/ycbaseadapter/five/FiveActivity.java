@@ -49,13 +49,45 @@ public class FiveActivity extends AppCompatActivity {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         ArrayList<Bean> beans = new ArrayList<>();
-       /* for (int a=0 ; a<5 ; a++){
+        for (int a=0 ; a<5 ; a++){
             Bean bean = new Bean();
             bean.setName("name"+a);
             bean.setState(false);
             beans.add(bean);
-        }*/
+        }
         adapter.addAll(beans);
+        adapter.setOnChildClickListener(new FiveOneAdapter.OnChildClickListener() {
+            @Override
+            public void OnChildClick(View v, int position) {
+                Bean bean = adapter.getAllData().get(position);
+                bean.setState(!bean.isState());
+                adapter.notifyItemInserted(position);
+            }
+        });
+
+        adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                return null;
+            }
+
+            @Override
+            public void onBindView(View headerView) {
+
+            }
+        });
+
+        adapter.addFooter(new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                return null;
+            }
+
+            @Override
+            public void onBindView(View headerView) {
+
+            }
+        });
 
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             @Override
