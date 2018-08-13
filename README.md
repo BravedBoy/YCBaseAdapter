@@ -9,6 +9,7 @@
     - 3.1 设置数据方法
     - 3.2 移除，清除方法看代码
     - 3.3 添加header或者footer
+    - 3.4 添加item中子View的点击事件
 - 4.遇到问题介绍
 - 5.局限性
 
@@ -19,6 +20,7 @@
 - 1.3 支持设置多种不同的ViewType类型布局
 - 1.4 支持recyclerView添加多个header和footer
 - 1.5 子类继承BaseAdapter<T>，通过实现bindData方法设置view数据
+- 1.6 支持item中添加子View的点击事件
 
 
 ### 2.使用介绍
@@ -169,6 +171,26 @@ adapter.addFooter(new RecyclerArrayAdapter.ItemView() {
 
     }
 });
+```
+
+- 3.4 添加item中子View的点击事件
+
+```
+ addOnClickListener(R.id.iv_news_image);
+ 
+ adapter.setOnItemChildClickListener(new RecyclerArrayAdapter.OnItemChildClickListener() {
+     @Override
+     public void onItemChildClick(View view, int position) {
+         switch (view.getId()){
+             case R.id.iv_news_image:
+                 Toast.makeText(HeaderFooterActivity.this,"点击图片了",Toast.LENGTH_SHORT).show();
+                 break;
+             case R.id.tv_title:
+                 Toast.makeText(HeaderFooterActivity.this,"点击标题",Toast.LENGTH_SHORT).show();
+                 break;
+         }
+     }
+ });
 ```
 
 ### 4.遇到问题介绍

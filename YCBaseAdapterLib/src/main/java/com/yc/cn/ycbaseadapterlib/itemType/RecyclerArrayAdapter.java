@@ -29,6 +29,7 @@ abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseM
     private ArrayList<ItemView> footers = new ArrayList<>();
     private OnItemClickListener mItemClickListener;
     private OnItemLongClickListener mItemLongClickListener;
+    private OnItemChildClickListener mOnItemChildClickListener;
     private final Object mLock = new Object();
     private boolean mNotifyOnChange = true;
     private Context mContext;
@@ -553,6 +554,10 @@ abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseM
         boolean onItemLongClick(int position);
     }
 
+    public interface OnItemChildClickListener {
+        void onItemChildClick(View view, int position);
+    }
+
     /**
      * 设置条目点击事件
      * @param listener              监听器
@@ -567,6 +572,18 @@ abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseM
      */
     public void setOnItemLongClickListener(OnItemLongClickListener listener){
         this.mItemLongClickListener = listener;
+    }
+
+    /**
+     * 设置孩子点击事件
+     * @param listener              监听器
+     */
+    public void setOnItemChildClickListener(OnItemChildClickListener listener) {
+        this.mOnItemChildClickListener = listener;
+    }
+
+    public OnItemChildClickListener getOnItemChildClickListener() {
+        return mOnItemChildClickListener;
     }
 
     /**

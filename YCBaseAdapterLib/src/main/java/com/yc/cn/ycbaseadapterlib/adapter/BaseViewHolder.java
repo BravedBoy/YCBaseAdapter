@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
@@ -16,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.yc.cn.ycbaseadapterlib.itemType.RecyclerArrayAdapter;
+
+import java.lang.reflect.Field;
 
 
 /**
@@ -61,9 +67,75 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
     /**
      * 获取item的对象
      */
+    @Nullable
     public View getItemView(){
         return mItemView;
     }
+
+
+    /**
+     * 获取数据索引的位置
+     * @return          position
+     */
+    protected int getDataPosition(){
+        RecyclerView.Adapter adapter = getOwnerAdapter();
+        if (adapter!=null && adapter instanceof RecyclerArrayAdapter){
+            return getAdapterPosition() - ((RecyclerArrayAdapter) adapter).getHeaderCount();
+        }
+        return getAdapterPosition();
+    }
+
+
+
+    /**
+     * 获取adapter对象
+     * @param <T>
+     * @return                  adapter
+     */
+
+    private  <T extends RecyclerView.Adapter> T getOwnerAdapter(){
+        RecyclerView recyclerView = getOwnerRecyclerView();
+        //noinspection unchecked
+        return recyclerView != null ? (T) recyclerView.getAdapter() : null;
+    }
+
+
+    @Nullable
+    private RecyclerView getOwnerRecyclerView(){
+        try {
+            Field field = RecyclerView.ViewHolder.class.getDeclaredField("mOwnerRecyclerView");
+            field.setAccessible(true);
+            return (RecyclerView) field.get(this);
+        } catch (NoSuchFieldException ignored) {
+        } catch (IllegalAccessException ignored) {
+        }
+        return null;
+    }
+
+
+    /**
+     * 添加子控件的点击事件
+     * @param viewId                        控件id
+     */
+    protected void addOnClickListener(@IdRes final int viewId) {
+        final View view = getView(viewId);
+        if (view != null) {
+            if (!view.isClickable()) {
+                view.setClickable(true);
+            }
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getOwnerAdapter()!=null){
+                        if (((RecyclerArrayAdapter)getOwnerAdapter()).getOnItemChildClickListener() != null) {
+                            ((RecyclerArrayAdapter)getOwnerAdapter()).getOnItemChildClickListener().onItemChildClick(v, getDataPosition());
+                        }
+                    }
+                }
+            });
+        }
+    }
+
 
 
     /**
