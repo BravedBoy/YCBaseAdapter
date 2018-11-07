@@ -22,7 +22,7 @@ import java.util.List;
  * @version         1.0
  * @date            2017/5/2
  */
-abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseMViewHolder>   {
+public abstract class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseMViewHolder>   {
 
     private List<T> mObjects;
     private ArrayList<ItemView> headers = new ArrayList<>();
@@ -39,22 +39,18 @@ abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseM
         init(context,  new ArrayList<T>());
     }
 
-
     public RecyclerArrayAdapter(Context context, T[] objects) {
         init(context, Arrays.asList(objects));
     }
-
 
     public RecyclerArrayAdapter(Context context, List<T> objects) {
         init(context, objects);
     }
 
-
     private void init(Context context , List<T> objects) {
         mContext = context;
         mObjects = new ArrayList<>(objects);
     }
-
 
     public interface ItemView {
          View onCreateView(ViewGroup parent);
@@ -86,7 +82,6 @@ abstract public class RecyclerArrayAdapter<T> extends RecyclerView.Adapter<BaseM
     public GridSpanSizeLookup obtainGridSpanSizeLookUp(int maxCount){
         return new GridSpanSizeLookup(maxCount);
     }
-
 
     public void addHeader(ItemView view){
         if (view==null) {

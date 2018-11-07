@@ -41,7 +41,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder{
     //这个是item的对象
     private View mItemView;
 
-    BaseViewHolder(View itemView) {
+    public BaseViewHolder(View itemView) {
         super(itemView);
         this.mItemView = itemView;
         viewSparseArray = new SparseArray<>();

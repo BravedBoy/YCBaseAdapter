@@ -24,7 +24,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     private Context context;
     private int layoutId;
     private List<T> data;
-    protected MultiTypeSupport<T> multiTypeSupport;
+    public MultiTypeSupport<T> multiTypeSupport;
     private OnItemClickListener mOnItemClickListener;
     //默认可以回收
     private boolean isRecycle = true;
@@ -108,6 +108,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      * @param viewHolder        viewHolder
      */
     private void setListener(final BaseViewHolder viewHolder) {
+        if (viewHolder.getItemView()==null){
+            return;
+        }
         viewHolder.getItemView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

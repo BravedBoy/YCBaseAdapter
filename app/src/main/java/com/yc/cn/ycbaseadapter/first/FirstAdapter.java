@@ -2,6 +2,7 @@ package com.yc.cn.ycbaseadapter.first;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,11 @@ public class FirstAdapter extends RecyclerView.Adapter<FirstAdapter.MyViewHolder
         this.mItemClickListener = listener;
     }
 
+    private int a , b;
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.e("yangchong","onCreateViewHolder"+ a++);
         View view = LayoutInflater.from(context).inflate(R.layout.item_first, parent, false);
         MyViewHolder holder = new MyViewHolder(view, mItemClickListener);
         return holder;
@@ -36,6 +40,7 @@ public class FirstAdapter extends RecyclerView.Adapter<FirstAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
+        Log.e("yangchong","onBindViewHolder"+ b++);
         if(list!=null && list.size()>0){
             holder.tv_title.setText(list.get(position).getTitle());
         }
